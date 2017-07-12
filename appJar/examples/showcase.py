@@ -1,5 +1,6 @@
 import sys
 import time
+import threading
 sys.path.append("../../")
 from appJar import gui
 
@@ -68,7 +69,7 @@ def drag(lbl):
 
 # called when a drag stops - check the label being dropped on
 def drop(lbl):
-    if lbl == "dd": 
+    if lbl == "dd":
         app.setLabel("dd", app.getLabel(dragged))
         app.setLabelBg("dd", colours[int(dragged[2])])
 
@@ -103,11 +104,11 @@ def scale(name):
 def move(direction):
     if direction == ">":
         for item in app.getListItems("Animals"):
-            app.addListItem("Sports",item) 
+            app.addListItem("Sports",item)
             app.removeListItem("Animals", item)
     elif direction == "<":
         for item in app.getListItems("Sports"):
-            app.addListItem("Animals",item) 
+            app.addListItem("Animals",item)
             app.removeListItem("Sports", item)
     elif direction == "<<":
         app.addListItems("Animals", app.getAllListItems("Sports"))
