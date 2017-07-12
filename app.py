@@ -10,11 +10,16 @@ funds = 0
 
 earning = 1
 
-def press(name):
+def update_header():
     global funds
-    global earning
-    funds += earning
     app.setLabel("title", "Cookie Clicker Clone - %s Cookie(s)" % funds)
+
+
+def press(name):
+    global earning
+    global funds
+    funds += earning
+    update_header()
 
 def upgrade(name):
     global funds
@@ -27,7 +32,8 @@ def upgrade(name):
     clicker_cost*=2
     earning+=1
     app.setButton("Upgrade", 'Upgrade your clicks for %s Cookies!' % clicker_cost)
-    app.setLabel("title", "Cookie Clicker Clone - %s Cookie(s)" % funds)
+    update_header()
+
 
 passive_income = 0
 
@@ -36,7 +42,7 @@ def passive_income_generator():
     global funds
     print("generating income")
     funds+=passive_income
-    app.setLabel("title", "Cookie Clicker Clone - %s Cookie(s)" % funds)
+    update_header()
     threading.Timer(1.0, passive_income_generator).start()
 
 
@@ -53,9 +59,7 @@ def grandma(name):
     passive_income+=1
     grandma_cost = int(1.5 * grandma_cost)
     app.setButton("Grandma", 'Buy a grandma for %s cookies' % grandma_cost)
-    app.setLabel("title", "Cookie Clicker Clone - %s Cookie(s)" % funds)
-
-
+    update_header()
 
 
 app.addButton("Get Cookies!", press)
